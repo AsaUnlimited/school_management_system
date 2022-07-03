@@ -1,3 +1,6 @@
+from ntpath import join
+
+
 class School:
     id = 0
     schools_list = {}
@@ -9,7 +12,21 @@ class School:
     def add_school(self):
         School.schools_list[School.id] = [self.school_name, self.school_type, self.school_description]
         return f"{self.school_name} has already been added to the Schools"
+    def delete(self, id):
+        if id in School.schools_list.keys():
+            School.schools_list.pop(id)
+        return School.schools_list
+    def search_school(self, school):
+        for i,y in School.schools_list.items():
+                if school in "".join(map(str, y)):
+                    print(y)
 
+
+school = School("alakara", "In God we trust", "secondary School")
+school.add_school()
+school = School("alabal", "God we trust", "secondary School")
+school.add_school()
+school.search_school("God we trust")
 class EditSchool(School):
     def __init__(self, id):
         self.id = id
@@ -30,7 +47,4 @@ class EditSchool(School):
             print(School.schools_list[self.id])
             School.schools_list[self.id][3] = type
             print(School.schools_list[self.id])
-first_school = School("alakara", "In God we trust", "secondary School")
-first_school.add_school()
-second_school = School("alabal", "God we trust", "secondary School")
-second_school.add_school()
+
